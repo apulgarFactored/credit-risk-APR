@@ -42,7 +42,7 @@ previous_application_df = spark_session.read.format("csv").options (
     inferSchema = "true",
 ).load("s3://onboarding-projects/credit_default/previous_application.csv")
 
-POS_CASH_balance_df = spark_session.read.format("csv").options (
+pos_cash_balance_df = spark_session.read.format("csv").options (
     header = "true",
     inferSchema = "true",
 ).load("s3://onboarding-projects/credit_default/POS_CASH_balance.csv")
@@ -75,8 +75,8 @@ installments_payments_dynamic = DynamicFrame.fromDF(
     "installments_payments"
 )
 
-POS_CASH_balance_dynamic = DynamicFrame.fromDF(
-    POS_CASH_balance_df,
+pos_cash_balance_dynamic = DynamicFrame.fromDF(
+    pos_cash_balance_df,
     glue_context,
     "POS_CASH_balance"
 )
@@ -114,7 +114,7 @@ glue_context.write_dynamic_frame.from_options(
 )
 
 glue_context.write_dynamic_frame.from_options(
-    frame = POS_CASH_balance_dynamic,
+    frame = pos_cash_balance_dynamic,
     connection_options = {"path": "s3://onboarding-projects/andres_pulgarin/raw_zone"},
     connection_type = "s3",
     format = "csv",
