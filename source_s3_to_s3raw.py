@@ -48,8 +48,6 @@ pos_cash_balance_df = spark_session.read.format("csv").options (
 ).load("s3://onboarding-projects/credit_default/POS_CASH_balance.csv")
 
 
-print(bureau_balance.limit(10))
-
 ###Converting Spark data frames on dynamic frames to write into raw_zone
 bureau_balance_dynamic = DynamicFrame.fromDF(
     bureau_balance_df,
@@ -91,7 +89,7 @@ previous_application_dynamic = DynamicFrame.fromDF(
 ##Writing results on s3 bucket raw_zone
 glue_context.write_dynamic_frame.from_options(
     frame = bureau_balance_dynamic,
-    connection_options = {"path": "s3://onboarding-projects/andres_pulgarin/raw_zone"},
+    connection_options = {"path": "s3://credit-risk-andres-pulgarin-data-lake/raw_zone/"},
     connection_type = "s3",
     format = "csv",
     transformation_ctx = "from s3 source to s3 raw_zone"
@@ -99,7 +97,7 @@ glue_context.write_dynamic_frame.from_options(
 
 glue_context.write_dynamic_frame.from_options(
     frame = bureau_dynamic,
-    connection_options = {"path": "s3://onboarding-projects/andres_pulgarin/raw_zone"},
+    connection_options = {"path": "s3://credit-risk-andres-pulgarin-data-lake/raw_zone/"},
     connection_type = "s3",
     format = "csv",
     transformation_ctx = "from s3 source to s3 raw_zone"
@@ -107,7 +105,7 @@ glue_context.write_dynamic_frame.from_options(
  
 glue_context.write_dynamic_frame.from_options(
     frame = credit_card_balance_df,
-    connection_options = {"path": "s3://onboarding-projects/andres_pulgarin/raw_zone"},
+    connection_options = {"path": "s3://credit-risk-andres-pulgarin-data-lake/raw_zone/"},
     connection_type = "s3",
     format = "csv",
     transformation_ctx = "from s3 source to s3 raw_zone"
@@ -115,7 +113,7 @@ glue_context.write_dynamic_frame.from_options(
 
 glue_context.write_dynamic_frame.from_options(
     frame = pos_cash_balance_dynamic,
-    connection_options = {"path": "s3://onboarding-projects/andres_pulgarin/raw_zone"},
+    connection_options = {"path": "s3://credit-risk-andres-pulgarin-data-lake/raw_zone/"},
     connection_type = "s3",
     format = "csv",
     transformation_ctx = "from s3 source to s3 raw_zone"
@@ -123,7 +121,7 @@ glue_context.write_dynamic_frame.from_options(
 
 glue_context.write_dynamic_frame.from_options(
     frame = installments_payments_dynamic,
-    connection_options = {"path": "s3://onboarding-projects/andres_pulgarin/raw_zone"},
+    connection_options = {"path": "s3://credit-risk-andres-pulgarin-data-lake/raw_zone/"},
     connection_type = "s3",
     format = "csv",
     transformation_ctx = "from s3 source to s3 raw_zone"
@@ -131,7 +129,7 @@ glue_context.write_dynamic_frame.from_options(
 
 glue_context.write_dynamic_frame.from_options(
     frame = previous_application_dynamic,
-    connection_options = {"path": "s3://onboarding-projects/andres_pulgarin/raw_zone"},
+    connection_options = {"path": "s3://credit-risk-andres-pulgarin-data-lake/raw_zone/"},
     connection_type = "s3",
     format = "csv",
     transformation_ctx = "from s3 source to s3 raw_zone"
